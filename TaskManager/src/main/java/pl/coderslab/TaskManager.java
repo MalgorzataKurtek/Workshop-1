@@ -1,22 +1,28 @@
 package pl.coderslab;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskManager {
+    static final String FILE_NAME = "tasks.csv";
+    static final String[] OPTIONS = { "ADD", "REMOVE", "LIST", "EXIT" };
+    static String[][] tasks;
+
     public static void main(String[] args) {
 
-        System.out.println(ConsoleColors.BLUE + "Please select an option:");
-        String[][] array = {{"add"}, {"remove"}, {"list"}, {"exit"}};
-        System.out.println(array[0][0]);
-        System.out.println(array[1][0]);
-        System.out.println(array[2][0]);
-        System.out.println(array[3][0]);
+        printOptions(OPTIONS);
 
         Scanner skan = new Scanner(System.in);
         String next = skan.next();
+
+    }
+
+    public static void printOptions(String[] tab) {
+        System.out.println(ConsoleColors.BLUE);
+        System.out.println("Please select an option: " + ConsoleColors.RESET);
+
+        for (String option : tab) {
+            System.out.println(option);
+        }
 
     }
 }
