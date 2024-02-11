@@ -13,14 +13,30 @@ public class TaskManager {
     static String[][] tasks;
 
     public static void main(String[] args) {
-
-        printOptions(OPTIONS);
         tasks = loadDataToTab(FILE_NAME);
-        
-        Scanner skan = new Scanner(System.in);
-        String next = skan.next();
+        printOptions(OPTIONS);
+    
 
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextLine()) {
+            String input = scanner.nextLine();
+            switch (input) {
+                case "exit":
+                    break;
+                case "add":
+                    break;
+                case "remove":
+                    break;
+                case "list":
+                    printTab(tasks);
+                    break;
+                default:
+                    System.out.println("Please select a correct option.");
+            }
+            printOptions(OPTIONS);
+        }
     }
+    
 
     public static void printOptions(String[] tab) {
         System.out.println(ConsoleColors.BLUE);
@@ -29,7 +45,6 @@ public class TaskManager {
         for (String option : tab) {
             System.out.println(option);
         }
-
     }
 
     public static String[][] loadDataToTab(String fileName) {
@@ -57,5 +72,15 @@ public class TaskManager {
             e.printStackTrace();
         }
         return tab;
+    }
+
+    public static void printTab(String[][] tab) {
+        for (int i = 0; i < tab.length; i++) {
+            System.out.print(i + " : ");
+            for (int j = 0; j < tab[i].length; j++) {
+                System.out.print(tab[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
