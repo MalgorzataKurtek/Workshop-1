@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,19 +16,19 @@ public class TaskManager {
     public static void main(String[] args) {
         tasks = loadDataToTab(FILE_NAME);
         printOptions(OPTIONS);
-    
 
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             switch (input) {
-                case "exit":
+                case "EXIT":
                     break;
-                case "add":
+                case "ADD":
+                    addTask();
                     break;
-                case "remove":
+                case "REMOVE":
                     break;
-                case "list":
+                case "LIST":
                     printTab(tasks);
                     break;
                 default:
@@ -36,7 +37,6 @@ public class TaskManager {
             printOptions(OPTIONS);
         }
     }
-    
 
     public static void printOptions(String[] tab) {
         System.out.println(ConsoleColors.BLUE);
@@ -83,4 +83,24 @@ public class TaskManager {
             System.out.println();
         }
     }
+
+    private static void addTask() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please add task description");
+        String description = scanner.nextLine();
+
+        System.out.println("Please add task due date");
+        String dueDate = scanner.nextLine();
+
+        System.out.println("Is your task important: true/false");
+        String isImportant = scanner.nextLine();
+
+        tasks = Arrays.copyOf(tasks, tasks.length + 1);
+        tasks[tasks.length - 1] = new String[3];
+        tasks[tasks.length - 1][0] = description;
+        tasks[tasks.length - 1][1] = dueDate;
+        tasks[tasks.length - 1][2] = isImportant;
+    }
+
 }
