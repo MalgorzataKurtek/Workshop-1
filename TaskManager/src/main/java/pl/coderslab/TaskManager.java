@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
 public class TaskManager {
     static final String FILE_NAME = "tasks.csv";
     static final String[] OPTIONS = { "ADD", "REMOVE", "LIST", "EXIT" };
@@ -27,6 +30,8 @@ public class TaskManager {
                     addTask();
                     break;
                 case "REMOVE":
+                removeTask(tasks, getTheNumber());
+                System.out.println("Value was successfully deleted.");
                     break;
                 case "LIST":
                     printTab(tasks);
@@ -103,4 +108,34 @@ public class TaskManager {
         tasks[tasks.length - 1][2] = isImportant;
     }
 
+    public static boolean isNumberGreaterEqualZero(String input) {
+        if (NumberUtils.isParsable(input)) {
+            return Integer.parseInt(input) >= 0;
+        }
+        return false;
+    }
+
+    public static int getTheNumber() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please select number to remove.");
+
+        String n = scanner.nextLine();
+
+        while (!isNumberGreaterEqualZero(n)) {
+            System.out.println("Incorrect argument passed. Please give number greater or equal 0");
+            n = scanner.nextLine();
+        }
+
+        return Integer.parseInt(n);
+    }
+
+    private static void removeTask(String[][] tab, int index) {
+        try {
+            if (index < tab.length) {
+                tasks = ArrayUtils.remove(tab, index);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Element not exist in tab");
+        }
+    }
 }
