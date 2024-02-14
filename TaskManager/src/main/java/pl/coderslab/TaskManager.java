@@ -25,13 +25,16 @@ public class TaskManager {
             String input = scanner.nextLine();
             switch (input) {
                 case "EXIT":
+                    saveTabToFile(FILE_NAME, tasks);
+                    System.out.println(ConsoleColors.RED + "Bye, bye.");
+                    System.exit(0);
                     break;
                 case "ADD":
                     addTask();
                     break;
                 case "REMOVE":
-                removeTask(tasks, getTheNumber());
-                System.out.println("Value was successfully deleted.");
+                    removeTask(tasks, getTheNumber());
+                    System.out.println("Value was successfully deleted.");
                     break;
                 case "LIST":
                     printTab(tasks);
@@ -136,6 +139,21 @@ public class TaskManager {
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("Element not exist in tab");
+        }
+    }
+
+    public static void saveTabToFile(String fileName, String[][] tab) {
+        Path dir = Paths.get(fileName);
+        String[] lines = new String[tasks.length];
+
+        for (int i = 0; i < tab.length; i++) {
+            lines[i] = String.join(",", tab[i]);
+        }
+
+        try {
+            Files.write(dir, Arrays.asList(lines));
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
